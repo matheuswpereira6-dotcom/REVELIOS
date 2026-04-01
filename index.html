@@ -2,64 +2,86 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Revelios - Performance Transparente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REVELI-OS | Performance Transparente</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: #e0e0e0; text-align: center; padding: 50px; }
-        .box { background: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 600px; margin: 0 auto; border: 1px solid #333; }
-        textarea { width: 90%; height: 150px; background: #121212; color: #00ff00; border: 1px solid #444; padding: 10px; font-family: monospace; }
-        button { background: #6200ee; color: white; border: none; padding: 10px 20px; cursor: pointer; margin-top: 10px; border-radius: 5px; }
-        #status { margin-top: 20px; font-style: italic; color: #bb86fc; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #e0e0e0; text-align: center; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #1a1a1a; padding: 30px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #bb86fc; letter-spacing: 2px; }
+        .box { background: #252525; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #bb86fc; text-align: left; }
+        textarea { width: 100%; height: 100px; background: #121212; color: #00ff00; border: 1px solid #444; padding: 10px; font-family: monospace; border-radius: 5px; box-sizing: border-box; }
+        button { background: #6200ee; color: white; border: none; padding: 12px 25px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; margin: 5px; }
+        button:hover { background: #7722ff; transform: scale(1.05); }
+        .status-msg { margin-top: 15px; font-weight: bold; color: #03dac6; min-height: 20px; }
+        code { display: block; background: #000; padding: 15px; border-radius: 5px; color: #00ff00; text-align: left; white-space: pre-wrap; font-size: 13px; margin-top: 10px; border: 1px solid #333; }
     </style>
 </head>
 <body>
 
-    <h1>REVELIOS</h1>
-    <p>Onde a mágica roda em comandos.</p>
+<div class="container">
+    <h1>REVELI-OS</h1>
+    <p>Onde a mágica roda em comandos (e sem anúncios falsos).</p>
 
     <div class="box">
-        <h3>Cole aqui o texto do Scanner Revelios:</h3>
-        <textarea id="inputScanner" placeholder="Cole o conteúdo do seu .txt aqui..."></textarea>
-        <br>
-        <button onclick="analisarHardware()">Revelar Otimizações</button>
-        <p id="status"></p>
+        <h3>1. Identifique seu Hardware</h3>
+        <p>Cole aqui o conteúdo do arquivo <b>Meu_PC_REVELIOS.txt</b> gerado pelo Scanner:</p>
+        <textarea id="inputScanner" placeholder="TotalPhysicalMemory=..."></textarea>
+        <button onclick="analisarHardware()">Analisar Hardware</button>
+        <div id="status" class="status-msg"></div>
     </div>
 
-    <script>
-        function analisarHardware() {
-            let texto = document.getElementById("inputScanner").value;
-            let status = document.getElementById("status");
-
-            // Procura o valor da memória RAM no texto
-            let matchRAM = texto.match(/TotalPhysicalMemory=(\d+)/);
-
-            if (matchRAM) {
-                let ramBytes = parseInt(matchRAM[1]);
-                let ramGB = Math.round(ramBytes / (1024 ** 3));
-
-                if (ramGB >= 128) {
-                    status.innerText = "Eita! " + ramGB + "GB de RAM? Você está tentando simular o universo ou apenas abrir 3 abas do Chrome?";
-                } else if (ramGB <= 4) {
-                    status.innerText = "Detectamos " + ramGB + "GB. Vamos dar um fôlego extra para esse guerreiro!";
-                } else {
-                    status.innerText = "Identificamos " + ramGB + "GB de RAM. Preparando os melhores feitiços para você...";
-                }
-            } else {
-                status.innerText = "Não consegui ler os dados. Você usou o Scanner oficial do Revelios?";
-            }
-        }
-    </script>
-<div class="container">
-    <div class="card boost">
-        <h2>⚡ REVELI-OS BOOST</h2>
-        <p>Limpa DNS, temporários e libera CPU.</p>
-        <button onclick="copiarBoost()">Copiar Código .bat</button>
+    <div class="box">
+        <h3>2. Kit de Performance (Boost)</h3>
+        <p>Limpa DNS, arquivos temporários e desativa apps inúteis em 2º plano.</p>
+        <button onclick="copiarCodigo('codigoBoost')">Copiar Script de Boost</button>
+        <code id="codigoBoost">@echo off
+:: REVELI-OS BOOST
+ipconfig /flushdns
+del /q /s /f %temp%\*
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f
+echo Otimizado pelo REVELI-OS!
+pause</code>
     </div>
 
-    <div class="card reset">
-        <h2>🛡️ REVELI-OS RESET</h2>
-        <p>Volta as configurações ao padrão original.</p>
-        <button onclick="copiarReset()">Copiar Código .bat</button>
+    <div class="box">
+        <h3>3. Botão de Emergência (Reset)</h3>
+        <p>Volta as configurações ao padrão original do Windows.</p>
+        <button onclick="copiarCodigo('codigoReset')">Copiar Script de Reset</button>
+        <code id="codigoReset">@echo off
+:: REVELI-OS RESET
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 0 /f
+netsh winsock reset
+echo Restaurado pelo REVELI-OS!
+pause</code>
     </div>
 </div>
+
+<script>
+    function analisarHardware() {
+        let texto = document.getElementById("inputScanner").value;
+        let status = document.getElementById("status");
+        let matchRAM = texto.match(/TotalPhysicalMemory=(\d+)/);
+
+        if (matchRAM) {
+            let ramGB = Math.round(parseInt(matchRAM[1]) / (1024 ** 3));
+            if (ramGB >= 128) {
+                status.innerText = "🚀 " + ramGB + "GB de RAM? Você tá tentando rodar o quê? A NASA sabe disso?";
+            } else if (ramGB <= 4) {
+                status.innerText = "🐢 " + ramGB + "GB detectados. Vamos dar um fôlego para esse guerreiro!";
+            } else {
+                status.innerText = "✅ " + ramGB + "GB de RAM identificados. Pronto para o boost!";
+            }
+        } else {
+            status.innerText = "❌ Formato inválido. Use o Scanner oficial.";
+        }
+    }
+
+    function copiarCodigo(id) {
+        let codigo = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(codigo);
+        alert("Código copiado! Agora é só colar no Bloco de Notas e salvar como .bat");
+    }
+</script>
+
 </body>
 </html>
