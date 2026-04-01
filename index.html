@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Revelios - Performance Transparente</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #e0e0e0; text-align: center; padding: 50px; }
+        .box { background: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 600px; margin: 0 auto; border: 1px solid #333; }
+        textarea { width: 90%; height: 150px; background: #121212; color: #00ff00; border: 1px solid #444; padding: 10px; font-family: monospace; }
+        button { background: #6200ee; color: white; border: none; padding: 10px 20px; cursor: pointer; margin-top: 10px; border-radius: 5px; }
+        #status { margin-top: 20px; font-style: italic; color: #bb86fc; }
+    </style>
+</head>
+<body>
+
+    <h1>REVELIOS</h1>
+    <p>Onde a mágica roda em comandos.</p>
+
+    <div class="box">
+        <h3>Cole aqui o texto do Scanner Revelios:</h3>
+        <textarea id="inputScanner" placeholder="Cole o conteúdo do seu .txt aqui..."></textarea>
+        <br>
+        <button onclick="analisarHardware()">Revelar Otimizações</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        function analisarHardware() {
+            let texto = document.getElementById("inputScanner").value;
+            let status = document.getElementById("status");
+
+            // Procura o valor da memória RAM no texto
+            let matchRAM = texto.match(/TotalPhysicalMemory=(\d+)/);
+
+            if (matchRAM) {
+                let ramBytes = parseInt(matchRAM[1]);
+                let ramGB = Math.round(ramBytes / (1024 ** 3));
+
+                if (ramGB >= 128) {
+                    status.innerText = "Eita! " + ramGB + "GB de RAM? Você está tentando simular o universo ou apenas abrir 3 abas do Chrome?";
+                } else if (ramGB <= 4) {
+                    status.innerText = "Detectamos " + ramGB + "GB. Vamos dar um fôlego extra para esse guerreiro!";
+                } else {
+                    status.innerText = "Identificamos " + ramGB + "GB de RAM. Preparando os melhores feitiços para você...";
+                }
+            } else {
+                status.innerText = "Não consegui ler os dados. Você usou o Scanner oficial do Revelios?";
+            }
+        }
+    </script>
+
+</body>
+</html>
