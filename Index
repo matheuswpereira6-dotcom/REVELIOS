@@ -1,19 +1,40 @@
-<div class="box" style="border-left: 5px solid #03dac6;">
-        <h3>0. Pegue seu RG do PC</h3>
-        <p>Copie o código abaixo, salve como <b>Scanner.bat</b> e execute para gerar os dados do seu hardware.</p>
-        <button onclick="copiarCodigo('codigoScanner')" style="background: #03dac6; color: #000;">Copiar Código do Scanner</button>
+<div class="container">
+    <h1>REVELI-OS</h1>
+    <p>A verdade sobre o seu hardware, sem filtros.</p>
+
+    <div class="box" style="border-left: 5px solid #03dac6;">
+        <h3>PASSO 0: Pegue seu "RG do PC"</h3>
+        <p>Copie o código abaixo, salve como <b>Scanner.bat</b> e execute.</p>
+        <button onclick="copiarCodigo('codigoScanner')" style="background: #03dac6; color: #000;">Copiar Scanner</button>
         <code id="codigoScanner">@echo off
-title REVELI-OS - Scanner de Hardware
-echo Escaneando... Gerando seu Meu_PC_REVELIOS.txt
+title REVELI-OS Scanner
 set "out=Meu_PC_REVELIOS.txt"
-echo [SISTEMA] > %out%
-wmic os get Caption /value | find "=" >> %out%
-echo [PROCESSADOR] >> %out%
-wmic cpu get Name /value | find "=" >> %out%
-echo [GPU] >> %out%
-wmic path win32_VideoController get Name /value | find "=" >> %out%
-echo [RAM] >> %out%
-wmic computersystem get TotalPhysicalMemory /value | find "=" >> %output%
-echo Scan concluido! Copie o conteudo do arquivo %out% e cole abaixo.
+wmic computersystem get TotalPhysicalMemory /value > %out%
+wmic cpu get Name /value >> %out%
+wmic path win32_VideoController get Name /value >> %out%
+echo Scan concluido! Abra o arquivo %out% e cole o texto abaixo.
 pause</code>
     </div>
+
+    <div class="box">
+        <h3>PASSO 1: Analisar e Revelar</h3>
+        <p>Cole o conteúdo do <b>Meu_PC_REVELIOS.txt</b> aqui:</p>
+        <textarea id="inputScanner" placeholder="TotalPhysicalMemory=..."></textarea>
+        <button onclick="analisarHardware()">Analisar Máquina</button>
+        <div id="status" class="status-msg"></div>
+    </div>
+
+    <div class="box" style="border-left: 5px solid #bb86fc;">
+        <h3>PASSO 2: Aplicar o Boost</h3>
+        <p>Limpeza de DNS, temporários e apps inúteis.</p>
+        <button onclick="copiarCodigo('codigoBoost')">Copiar Script de Boost</button>
+        <code id="codigoBoost">... (seu código do boost) ...</code>
+    </div>
+
+    <div class="box" style="border-left: 5px solid #cf6679;">
+        <h3>PASSO 3: Botão de Emergência</h3>
+        <p>Voltar tudo ao padrão original.</p>
+        <button onclick="copiarCodigo('codigoReset')">Copiar Script de Reset</button>
+        <code id="codigoReset">... (seu código de reset) ...</code>
+    </div>
+</div>
