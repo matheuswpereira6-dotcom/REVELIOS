@@ -96,7 +96,52 @@ pause</code>
         navigator.clipboard.writeText(codigo);
         alert("Código copiado! Agora cole no Bloco de Notas e salve como .bat");
     }
-</script>
+</script> 
+    <script>function analisarHardware() {
+    let texto = document.getElementById("inputScanner").value;
+    let status = document.getElementById("status");
+    let caixaBoost = document.getElementById("codigoBoost");
+    
+    let matchRAM = texto.match(/TotalPhysicalMemory=(\d+)/);
+
+    if (matchRAM) {
+        let ramBytes = parseInt(matchRAM[1]);
+        let ramGB = Math.round(ramBytes / (1024 ** 3));
+        
+        // 1. A ZOEIRA PERSONALIZADA
+        if (ramGB >= 128) {
+            status.innerText = "🚀 " + ramGB + "GB de RAM? Você tá tentando rodar o quê? A NASA sabe disso?";
+        } else if (ramGB <= 4) {
+            status.innerText = "🐢 " + ramGB + "GB detectados. Vamos dar um fôlego para esse guerreiro!";
+        } else {
+            status.innerText = "✅ " + ramGB + "GB de RAM identificados. Gerando script otimizado...";
+        }
+
+        // 2. GERAR O CÓDIGO PERSONALIZADO (A MÁGICA)
+        let scriptPersonalizado = "@echo off\n";
+        scriptPersonalization += ":: SCRIPT GERADO PELO REVELI-OS PARA " + ramGB + "GB DE RAM\n";
+        scriptPersonalization += "ipconfig /flushdns\n";
+        scriptPersonalization += "del /q /s /f %temp%\\*\n";
+        
+        // Se o PC for fraco, desativa mais coisas
+        if (ramGB <= 8) {
+            scriptPersonalizado += ":: Otimizacao para PC de entrada\n";
+            scriptPersonalizado += "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\" /v \"GlobalUserDisabled\" /t REG_DWORD /d 1 /f\n";
+        } else {
+            scriptPersonalizado += ":: Otimizacao para PC Gamer/Edit\n";
+            scriptPersonalizado += "PowerCfg /SETACVALUEINDEX SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100\n";
+        }
+
+        scriptPersonalizado += "echo Seu PC de " + ramGB + "GB foi otimizado pelo REVELI-OS!\n";
+        scriptPersonalizado += "pause";
+
+        // Atualiza a caixa do Passo 2 com o código novo
+        caixaBoost.innerText = scriptPersonalizado;
+
+    } else {
+        status.innerText = "❌ Formato inválido. Use o Scanner oficial acima.";
+    }
+} </script>
 
 </body>
 </html>
